@@ -1,0 +1,26 @@
+{
+  "name": "journey",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "testcafe chrome:headless *.ts",
+    "test:headed": "testcafe chrome *.ts",
+    "lint": "eslint *.ts"
+  },
+  "dependencies": {
+    "eslint": "^8.0.1",
+    "testcafe": "^1.19.0",
+    "typescript": "^4.7.4"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.30.6",
+    "@typescript-eslint/parser": "^5.30.6",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-testcafe": "^0.2.1",
+    "eslint-plugin-vue": "^9.2.0"
+  }
+}
