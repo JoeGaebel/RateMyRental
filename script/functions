@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+function killByPort() {
+  lsof -i :"$1" | awk 'NR!=1 {print $2}' | xargs kill -9
+}
+
+function cleanUp() {
+  killByPort 3000
+}
+
+function waitForService() {
+  echo -e "\n"
+  echo "Waiting $1 to launch on $2"
+
+  while ! nc -z localhost "$2" &> /dev/null; do
+      sleep 0.1
+      echo -n "."
+  done
+  echo ""
+  echo "$2 is up ✅"
+  echo -e "\n"
+}
+
+function rcd () {
+  DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+  cd "$DIR"/../"$1" || exit
+}

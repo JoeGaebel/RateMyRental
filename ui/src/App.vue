@@ -1,15 +1,26 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
-      <HelloWorld msg="You did it!" />
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-      </nav>
-  <RouterView />
+  <nav>
+    <RouterLink to="/">Home</RouterLink>
+  </nav>
+
+  <div class="wrapper">
+    <h1 class="title">Rate My Rental</h1>
+    <RouterView />
+  </div>
 </template>
 
 <style scoped>
+.title {
+  font-size: 6rem;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 </style>

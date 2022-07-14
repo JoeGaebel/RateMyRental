@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
 set -eo pipefail
 
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-
-# shellcheck source=./functions/*
-for file in "$SCRIPT_DIR"/functions/*; do source "$file"; done
+DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+source "$DIR"/functions
 
 trap cleanUp TERM EXIT
 headed=false
@@ -23,18 +21,18 @@ then
 fi
 
 echo "Linting..."
-(cd ui && yarn lint &> /dev/null &)
-(cd journey && yarn lint &> /dev/null &)
+(rcd ui && yarn lint &> /dev/null &)
+(rcd journey && yarn lint &> /dev/null &)
 
-(cd ui && yarn test)
+(rcd ui && yarn test)
 
 (
- cd ui && yarn dev &> /dev/null &
+ rcd ui && yarn dev &> /dev/null &
  waitForService ui 3000
 )
 
 (
- cd journey
+ rcd journey
  if [ $headed = true ]
  then
     yarn test:headed
