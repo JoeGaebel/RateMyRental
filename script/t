@@ -32,6 +32,11 @@ echo "Linting..."
 )
 
 (
+ rcd api && yarn start &> /dev/null &
+ waitForService ui 4000
+)
+
+(
  rcd journey
  if [ $headed = true ]
  then

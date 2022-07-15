@@ -6,6 +6,7 @@ function killByPort() {
 
 function cleanUp() {
   killByPort 3000
+  killByPort 4000
 }
 
 function waitForService() {

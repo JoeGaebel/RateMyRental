@@ -16,5 +16,13 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'happy-dom',
+  },
+  proxy: {
+    '/api': {
+      target: 'https://localhost:4000/api',
+      changeOrigin: true,
+      secure: false,
+      ws: true,
+    }
   }
 })

@@ -11,14 +11,14 @@ describe('HelloWorld', () => {
 
   beforeEach(() => {
     // @ts-ignore
-    import.meta.env.VITE_API_URL = 'api-url'
+    import.meta.env.VITE_API_URL = 'http://localhost'
 
     propertiesMock = [
       {address: '123 Clam St', comment: 'Great place!'},
       {address: '20 Rae Street', comment: 'Ok place!'}
     ]
 
-    getSpy = vi.spyOn(axios, 'get').mockResolvedValue({ properties: propertiesMock })
+    getSpy = vi.spyOn(axios, 'get').mockResolvedValue({ data: {properties: propertiesMock }})
   })
 
   it('searches for properties and renders the results', async () => {
@@ -28,7 +28,7 @@ describe('HelloWorld', () => {
     await searchInput.setValue('20 Rae Street')
     await wrapper.find('button').trigger('click')
 
-    expect(getSpy).toHaveBeenCalledWith('api-url/api/properties', {params: {q: '20 Rae Street'}})
+    expect(getSpy).toHaveBeenCalledWith('http://localhost/api/properties', {params: {q: '20 Rae Street'}})
 
     await flushPromises()
 
