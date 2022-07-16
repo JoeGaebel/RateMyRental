@@ -32,8 +32,9 @@ export default {
   methods: {
     async getProperties() {
       try {
+        const url = `${import.meta.env.VITE_API_URL}/api/properties`
         const response = await axios.get(
-            `${import.meta.env.VITE_API_URL}/api/properties`,
+            url,
             { params: { q: this.searchQuery } }
         )
         this.properties = (response.data as PropertyResponse).properties

@@ -19,7 +19,6 @@ function waitForService() {
   done
   echo ""
   echo "$2 is up ✅"
-  echo -e "\n"
 }
 
 function rcd () {

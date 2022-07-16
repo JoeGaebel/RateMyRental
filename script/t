@@ -27,7 +27,7 @@ echo "Linting..."
 (rcd ui && yarn test)
 
 (
- rcd ui && yarn dev &> /dev/null &
+ rcd ui && yarn start &> /dev/null &
  waitForService ui 3000
 )
 
@@ -37,6 +37,7 @@ echo "Linting..."
 )
 
 (
+ echo -e "\n"
  rcd journey
  if [ $headed = true ]
  then
