@@ -8,6 +8,6 @@ test('Rendering results', async t => {
   await t.typeText('[aria-label="property search"]', 'Unit 2 20 Rae Street')
   await t.click(Selector('button').withText('Search'))
 
-  const randwick = Selector('[aria-label="property search result"]').withText('Unit 2 20 Rae Street')
+  const randwick = Selector('[aria-label="property listing"]').withText('Unit 2 20 Rae Street')
   await t.expect(randwick.exists).ok()
 })
