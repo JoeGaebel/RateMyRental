@@ -1,5 +1,5 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { Controller, Get } from '@nestjs/common'
+import { AppService } from './app.service'
 
 interface Property {
   address: string;
@@ -23,6 +23,6 @@ export class AppController {
           comment: 'Strata ignored a serious gas leak',
         },
       ],
-    };
+    }
   }
 }

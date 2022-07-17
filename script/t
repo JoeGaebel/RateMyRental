@@ -21,20 +21,20 @@ then
 fi
 
 echo "Linting..."
-(rcd ui && yarn lint &> /dev/null &)
-(rcd journey && yarn lint &> /dev/null &)
+relExec ui yarn lint &
+relExec api yarn lint &
+relExec journey yarn lint &
 
-(rcd ui && yarn test)
+wait
 
-(
- rcd ui && yarn start &> /dev/null &
- waitForService ui 3000
-)
+relExec ui yarn test
+relExec api yarn test
 
-(
- rcd api && yarn start &> /dev/null &
- waitForService ui 4000
-)
+relExec ui yarn start &> /dev/null &
+waitForService ui 3000
+
+relExec api yarn start &> /dev/null &
+waitForService ui 4000
 
 (
  echo -e "\n"
@@ -45,7 +45,6 @@ echo "Linting..."
   else
     yarn test
  fi
-
 )
 
 cleanUp

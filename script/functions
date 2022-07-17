@@ -13,15 +13,32 @@ function waitForService() {
   echo -e "\n"
   echo "Waiting $1 to launch on $2"
 
-  while ! nc -z localhost "$2" &> /dev/null; do
-      sleep 0.1
-      echo -n "."
+  while ! nc -z localhost "$2" &>/dev/null; do
+    sleep 0.1
+    echo -n "."
   done
+
   echo ""
   echo "$2 is up ✅"
 }
 
-function rcd () {
-  DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+function rcd() {
+  DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
   cd "$DIR"/../"$1" || exit
+}
+
+function relExec() {
+  DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+  pushd "$DIR"/../"$1" &>/dev/null || exit
+  shift
+
+  "$@"
+
+  # shellcheck disable=SC2181
+  if [[ "$?" -ne 0 ]]; then
+    echo "$* failed!"
+    exit
+  fi
+
+  popd &>/dev/null || exit
 }
