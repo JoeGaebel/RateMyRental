@@ -33,7 +33,7 @@ relExec api yarn test
 relExec ui yarn start &> /dev/null &
 waitForService ui 3000
 
-relExec api yarn start &> /dev/null &
+NODE_ENV=test relExec api yarn start &> /dev/null &
 waitForService ui 4000
 
 (

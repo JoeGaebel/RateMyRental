@@ -2,25 +2,36 @@ import { Test, TestingModule } from '@nestjs/testing'
 import { INestApplication } from '@nestjs/common'
 import * as request from 'supertest'
 import { AppModule } from '../src/app.module'
+import { TestDBService } from '../src/testDB.service'
 
 describe('AppController', () => {
   let app: INestApplication
+  let testDBService: TestDBService
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
+      providers: [TestDBService]
     }).compile()
 
     app = moduleFixture.createNestApplication()
     await app.init()
+
+    testDBService = app.get<TestDBService>(TestDBService)
+    await testDBService.clearProperties()
+    await testDBService.insertProperty({
+      address: '90 Blues Point Rd',
+      comment: 'Beautiful view'
+    })
   })
 
-  it('/ (GET)', () => {
+  it('gets properties', () => {
     const expectedResponse = {
       properties: [
         {
-          address: 'Unit 2 20 Rae Street',
-          comment: 'Strata ignored a serious gas leak',
+          id: expect.any(Number),
+          address: '90 Blues Point Rd',
+          comment: 'Beautiful view',
         },
       ],
     }
@@ -28,6 +39,8 @@ describe('AppController', () => {
     return request(app.getHttpServer())
       .get('/api/properties')
       .expect(200)
-      .expect(expectedResponse)
+      .expect((response: Response) => {
+        expect(response.body).toEqual(expectedResponse)
+      })
   })
 })

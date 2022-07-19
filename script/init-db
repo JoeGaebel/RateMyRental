@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+createuser admin --superuser
+createdb -O admin ratemyrental
+createdb -O admin ratemyrental-test
