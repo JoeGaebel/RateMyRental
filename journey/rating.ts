@@ -8,18 +8,19 @@ fixture`RateMyRental`
     await ctx.dbService.connect()
   })
 
-test('Rendering results', async t => {
+test('Searching results', async t => {
   await t.fixtureCtx.dbService.clearProperties()
-  await t.fixtureCtx.dbService.insertProperty({
-    address: '5 Kerr Close',
-    comment: 'Geckos in the garage'
-  })
+  await t.fixtureCtx.dbService.insertProperty({ address: '5 Kerr Close', comment: 'Geckos in the garage' })
+  await t.fixtureCtx.dbService.insertProperty({ address: '20 Rae Street', comment: 'Gas leak' })
 
   await t.expect(Selector('title').withText('Rate My Rental').exists).ok()
 
-  await t.typeText('[aria-label="property search"]', '5 Kerr Close')
+  await t.typeText('[aria-label="property search"]', '5 Kerr')
   await t.click(Selector('button').withText('Search'))
 
-  const randwick = Selector('[aria-label="property listing"]').withText('5 Kerr Close')
-  await t.expect(randwick.exists).ok()
+  const kerr = Selector('[aria-label="property listing"]').withText('5 Kerr Close')
+  const randwick = Selector('[aria-label="property listing"]').withText('20 Rae Street')
+
+  await t.expect(kerr.exists).ok()
+  await t.expect(randwick.exists).notOk()
 })

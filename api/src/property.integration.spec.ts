@@ -20,13 +20,18 @@ describe('Property Integration', () => {
     await testDBService.clearProperties()
   })
 
-  it('gets properties', async () => {
+  it('gets properties based on the query', async () => {
     await testDBService.insertProperty({
       address: 'Unit 2 20 Rae Street',
       comment: 'Strata ignored a serious gas leak'
     })
 
-    const properties = await propertyService.getProperties()
+    await testDBService.insertProperty({
+      address: '90 Blues Point Rd',
+      comment: 'Beautiful view'
+    })
+
+    const properties = await propertyService.getProperties('Rae')
     expect(properties).toEqual([
       {
         id: expect.any(Number),

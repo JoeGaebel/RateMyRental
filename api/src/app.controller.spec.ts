@@ -39,7 +39,7 @@ describe('AppController', () => {
         ],
       }
 
-      const result = await appController.getProperties()
+      const result = await appController.getProperties('Blues')
       expect(result).toEqual(expectedResponse)
     })
   })

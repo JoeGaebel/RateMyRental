@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common'
+import { Controller, Get, Query } from '@nestjs/common'
 import { PropertyService } from './property.service'
 
 export interface Property {
@@ -16,8 +16,8 @@ export class AppController {
   constructor(private readonly propertyService: PropertyService) {}
 
   @Get('/api/properties')
-  async getProperties(): Promise<PropertyResponse> {
-    const properties = await this.propertyService.getProperties()
+  async getProperties(@Query('q') addressQuery: string): Promise<PropertyResponse> {
+    const properties = await this.propertyService.getProperties(addressQuery)
     return {properties}
   }
 }
