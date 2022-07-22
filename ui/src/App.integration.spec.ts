@@ -34,12 +34,12 @@ describe('App', () => {
   it('searches for properties', async () => {
     const wrapper = mount(App, { global: { plugins: [router] } })
     server.use(
-      rest.get('*/api/properties', (req, res, context) => res(
+      rest.get('*/api/address', (req, res, context) => res(
           context.status(200),
           context.json({
-            properties: [{
-              address: 'Unit 2, 20 Rae Street',
-              comment: 'Strata would not investigate gas leak'
+            addresses: [{
+              id: 10,
+              address: 'Unit 2, 20 Rae Street'
             }]
           })
         )

@@ -4,7 +4,7 @@ import * as request from 'supertest'
 import { Response } from 'supertest'
 import { AppModule } from '../src/app.module'
 import { TestDBService } from '../src/testDB.service'
-import { PropertyResponse } from '../src/app.controller'
+import { PropertyResponse } from '../src/address.controller'
 import { BLUES_POINT, KERR_CLOSE } from 'db/TestDBUtility'
 
 describe('AppController', () => {
@@ -26,13 +26,13 @@ describe('AppController', () => {
 
   it('searches properties', () => {
     return request(app.getHttpServer())
-      .get('/api/properties?q=90 Blues Point')
+      .get('/api/address?q=90 Blues Point')
       .expect(200)
       .expect((response: Response) => {
-        const returnedPropertyAddresses = (response.body as PropertyResponse).properties.map(prop => prop.address)
+        const returnedPropertyAddresses = (response.body as PropertyResponse).addresses.map(prop => prop.address)
 
-        expect(returnedPropertyAddresses.includes(BLUES_POINT.address)).toEqual(true)
-        expect(returnedPropertyAddresses.includes(KERR_CLOSE.address)).toEqual(false)
+        expect(returnedPropertyAddresses.includes(BLUES_POINT)).toEqual(true)
+        expect(returnedPropertyAddresses.includes(KERR_CLOSE)).toEqual(false)
       })
   })
 })

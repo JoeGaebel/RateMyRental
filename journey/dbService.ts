@@ -1,11 +1,5 @@
 import { Client } from 'pg'
-import TestDBUtility, { PropertyAttributes } from 'db/TestDBUtility'
-
-export interface Property {
-  id: number
-  address: string;
-  comment: string;
-}
+import TestDBUtility from 'db/TestDBUtility'
 
 export class DBService extends TestDBUtility {
   private readonly pg: Client
@@ -25,12 +19,5 @@ export class DBService extends TestDBUtility {
 
   async connect () {
     return await this.pg.connect()
-  }
-
-  async insertProperty (property: PropertyAttributes): Promise<void> {
-    await this.pg.query(`
-        INSERT INTO properties(address, comment)
-        VALUES ('${property.address}', '${property.comment}');
-    `)
   }
 }

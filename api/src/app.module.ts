@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common'
-import { AppController } from './app.controller'
-import { PropertyService } from './property.service'
+import { AddressController } from './address.controller'
+import { AddressService } from './address.service'
 import { ConfigModule } from '@nestjs/config'
 import { DatabaseModule } from './database.module'
 
@@ -9,8 +9,8 @@ import { DatabaseModule } from './database.module'
     ConfigModule.forRoot(),
     DatabaseModule.register()
   ],
-  controllers: [AppController],
-  providers: [PropertyService],
+  controllers: [AddressController],
+  providers: [AddressService],
 })
 export class AppModule {
 }

@@ -3,8 +3,8 @@
   <button @click="getProperties()">Search</button>
   <div aria-label="property results">
     <ul>
-      <li v-for="property in properties" :key="property.address" aria-label="property listing">
-        {{ property.address }}
+      <li v-for="address in addresses" :key="address.id" aria-label="property listing">
+        {{ address.address }}
       </li>
     </ul>
   </div>
@@ -13,31 +13,31 @@
 <script lang="ts">
 import axios from 'axios'
 
-export interface Property {
+export interface Address {
+  id: number
   address: string
-  comment: string
 }
 
-export interface PropertyResponse {
-  properties: Property[]
+export interface AddressResponse {
+  addresses: Address[]
 }
 
 export default {
   data: () => {
     return {
       searchQuery: '',
-      properties: []
+      addresses: []
     }
   },
   methods: {
     async getProperties() {
       try {
-        const url = `${import.meta.env.VITE_API_URL}/api/properties`
+        const url = `${import.meta.env.VITE_API_URL}/api/address`
         const response = await axios.get(
             url,
             { params: { q: this.searchQuery } }
         )
-        this.properties = (response.data as PropertyResponse).properties
+        this.addresses = (response.data as AddressResponse).addresses
       } catch (e) {
         console.log('error!', e)
       }

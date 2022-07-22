@@ -1,29 +1,14 @@
 import { Client, QueryResult } from 'pg'
-import * as format from 'pg-format'
 
-export const BLUES_POINT = Object.freeze({
-  address: 'U35 90 Blues Point Rd',
-  comment: 'Beautiful views'
-})
+export const BLUES_POINT = 'U35 90 Blues Point Rd'
 
-export const RAE_STREET = Object.freeze({
-  address: 'Unit 2, 20 Rae Street',
-  comment: 'Strata refused to fix a serious gas leak'
-})
+export const RAE_STREET = 'Unit 2, 20 Rae Street'
 
-export const KERR_CLOSE = Object.freeze({
-  address: '5 Kerr Close',
-  comment: 'Geckos in the garage'
-})
+export const KERR_CLOSE =  '5 Kerr Close'
 
-export const FIXTURE_PROPERTIES: PropertyAttributes[] = [
+export const FIXTURE_PROPERTIES: string[] = [
   BLUES_POINT, RAE_STREET, KERR_CLOSE
 ]
-
-export interface PropertyAttributes {
-  address: string;
-  comment: string;
-}
 
 export default class TestDBUtility {
   constructor(private readonly pgClient: Client) {
@@ -38,10 +23,10 @@ export default class TestDBUtility {
   }
 
   async ensureFixtures(): Promise<void> {
-    for (const property of FIXTURE_PROPERTIES) {
-      const exists = await this.propertyExistsByAddress(property.address)
+    for (const address of FIXTURE_PROPERTIES) {
+      const exists = await this.propertyExistsByAddress(address)
       if (!exists) {
-        await this.insertProperty(property)
+        await this.insertProperty(address)
       }
     }
   }
@@ -50,24 +35,17 @@ export default class TestDBUtility {
     const result: QueryResult<{ exists: boolean }> = await this.pgClient.query<{ exists: boolean }>(`
         SELECT EXISTS(
             SELECT 1
-            FROM properties
+            FROM addresses
             WHERE address = '${address}'
         );
     `)
     return result.rows[0].exists
   }
 
-  async insertProperty(property: PropertyAttributes): Promise<void> {
+  async insertProperty(address: string): Promise<void> {
     await this.pgClient.query(`
-        INSERT INTO properties(address, comment)
-        VALUES ('${property.address}', '${property.comment}');
+        INSERT INTO addresses(address)
+        VALUES ('${address}');
     `)
-  }
-
-  async insertProperties(properties: PropertyAttributes[]): Promise<void> {
-    const formattedProperties = properties.map(property => [property.address, property.comment])
-    // @ts-ignore
-    const query = format('INSERT INTO properties (address, comment) VALUES %L', formattedProperties)
-    await this.pgClient.query(query)
   }
 }

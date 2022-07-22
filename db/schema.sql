@@ -28,21 +28,20 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: properties; Type: TABLE; Schema: public; Owner: -
+-- Name: addresses; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.properties (
+CREATE TABLE public.addresses (
     id integer NOT NULL,
-    address text NOT NULL,
-    comment text NOT NULL
+    address text NOT NULL
 );
 
 
 --
--- Name: properties_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: addresses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.properties_id_seq
+CREATE SEQUENCE public.addresses_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -52,10 +51,10 @@ CREATE SEQUENCE public.properties_id_seq
 
 
 --
--- Name: properties_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: addresses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.properties_id_seq OWNED BY public.properties.id;
+ALTER SEQUENCE public.addresses_id_seq OWNED BY public.addresses.id;
 
 
 --
@@ -68,18 +67,18 @@ CREATE TABLE public.schema_migrations (
 
 
 --
--- Name: properties id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: addresses id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.properties ALTER COLUMN id SET DEFAULT nextval('public.properties_id_seq'::regclass);
+ALTER TABLE ONLY public.addresses ALTER COLUMN id SET DEFAULT nextval('public.addresses_id_seq'::regclass);
 
 
 --
--- Name: properties properties_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: addresses addresses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.properties
-    ADD CONSTRAINT properties_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.addresses
+    ADD CONSTRAINT addresses_pkey PRIMARY KEY (id);
 
 
 --
@@ -101,4 +100,5 @@ ALTER TABLE ONLY public.schema_migrations
 
 INSERT INTO public.schema_migrations (version) VALUES
     ('20220717100836'),
-    ('20220720023449');
+    ('20220720023449'),
+    ('20220722045157');

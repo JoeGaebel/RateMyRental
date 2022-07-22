@@ -3,22 +3,22 @@ import type { SpyInstance } from 'vitest'
 import { flushPromises, shallowMount } from '@vue/test-utils'
 import Home from './Home.vue'
 import axios from 'axios'
-import type { Property } from '@/components/Home.vue'
+import type { Address } from '@/components/Home.vue'
 
 describe('Home', () => {
     let getSpy: SpyInstance
-    let propertiesMock: Property[]
+    let addressesMock: Address[]
 
     beforeEach(() => {
         // @ts-ignore
         import.meta.env.VITE_API_URL = 'http://localhost'
 
-        propertiesMock = [
-            {address: '123 Clam St', comment: 'Great place!'},
-            {address: '20 Rae Street', comment: 'Ok place!'}
+        addressesMock = [
+            {id: 1, address: '123 Clam St'},
+            {id: 2, address: '20 Rae Street'}
         ]
 
-        getSpy = vi.spyOn(axios, 'get').mockResolvedValue({ data: {properties: propertiesMock }})
+        getSpy = vi.spyOn(axios, 'get').mockResolvedValue({ data: {addresses: addressesMock }})
     })
 
     it('searches for properties and renders the results', async () => {
@@ -28,7 +28,7 @@ describe('Home', () => {
         await searchInput.setValue('20 Rae Street')
         await wrapper.find('button').trigger('click')
 
-        expect(getSpy).toHaveBeenCalledWith('http://localhost/api/properties', {params: {q: '20 Rae Street'}})
+        expect(getSpy).toHaveBeenCalledWith('http://localhost/api/address', {params: {q: '20 Rae Street'}})
 
         await flushPromises()
 
