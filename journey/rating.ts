@@ -9,9 +9,7 @@ fixture`RateMyRental`
   })
 
 test('Searching results', async t => {
-  await t.fixtureCtx.dbService.clearProperties()
-  await t.fixtureCtx.dbService.insertProperty({ address: '5 Kerr Close', comment: 'Geckos in the garage' })
-  await t.fixtureCtx.dbService.insertProperty({ address: '20 Rae Street', comment: 'Gas leak' })
+  await t.fixtureCtx.dbService.ensureFixtures()
 
   await t.expect(Selector('title').withText('Rate My Rental').exists).ok()
 

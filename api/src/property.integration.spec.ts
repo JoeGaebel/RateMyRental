@@ -3,7 +3,7 @@ import { PropertyService } from './property.service'
 import { TestDBService } from './testDB.service'
 import { DatabaseModule } from './database.module'
 import { ConfigModule } from '@nestjs/config'
-import { KERR_CLOSE } from './property.fixture'
+import { KERR_CLOSE } from 'db/TestDBUtility'
 
 describe('Property Integration', () => {
   let propertyService: PropertyService

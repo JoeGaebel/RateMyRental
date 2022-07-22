@@ -3,7 +3,7 @@ import { ConfigModule } from '@nestjs/config'
 import { DatabaseModule } from './database.module'
 import { TestDBService } from './testDB.service'
 import { PropertyService } from './property.service'
-import { BLUES_POINT, RAE_STREET } from './property.fixture'
+import { BLUES_POINT, RAE_STREET } from 'db/TestDBUtility'
 
 describe('Searching', () => {
   let testDBService: TestDBService

@@ -5,7 +5,7 @@ import { Response } from 'supertest'
 import { AppModule } from '../src/app.module'
 import { TestDBService } from '../src/testDB.service'
 import { PropertyResponse } from '../src/app.controller'
-import { BLUES_POINT, KERR_CLOSE } from '../src/property.fixture'
+import { BLUES_POINT, KERR_CLOSE } from 'db/TestDBUtility'
 
 describe('AppController', () => {
   let app: INestApplication

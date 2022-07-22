@@ -1,4 +1,5 @@
 import { Client } from 'pg'
+import TestDBUtility, { PropertyAttributes } from 'db/TestDBUtility'
 
 export interface Property {
   id: number
@@ -6,28 +7,27 @@ export interface Property {
   comment: string;
 }
 
-export class DBService {
-  private pg: Client
+export class DBService extends TestDBUtility {
+  private readonly pg: Client
 
   constructor () {
-    this.pg = new Client({
+    const dbClient = new Client({
       user: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_TEST_NAME,
       port: parseInt(process.env.DB_PORT!),
       host: process.env.DB_HOST
     })
+
+    super(dbClient)
+    this.pg = dbClient
   }
 
   async connect () {
     return await this.pg.connect()
   }
 
-  async clearProperties (): Promise<void> {
-    await this.pg.query('DELETE FROM properties')
-  }
-
-  async insertProperty (property: Omit<Property, 'id'>): Promise<void> {
+  async insertProperty (property: PropertyAttributes): Promise<void> {
     await this.pg.query(`
         INSERT INTO properties(address, comment)
         VALUES ('${property.address}', '${property.comment}');
