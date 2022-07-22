@@ -3,6 +3,7 @@ import { PropertyService } from './property.service'
 import { TestDBService } from './testDB.service'
 import { DatabaseModule } from './database.module'
 import { ConfigModule } from '@nestjs/config'
+import { KERR_CLOSE } from './property.fixture'
 
 describe('Property Integration', () => {
   let propertyService: PropertyService
@@ -17,27 +18,14 @@ describe('Property Integration', () => {
     propertyService = app.get<PropertyService>(PropertyService)
     testDBService = app.get<TestDBService>(TestDBService)
 
-    await testDBService.clearProperties()
+    await testDBService.ensureFixtures()
   })
 
   it('gets properties based on the query', async () => {
-    await testDBService.insertProperty({
-      address: 'Unit 2 20 Rae Street',
-      comment: 'Strata ignored a serious gas leak'
+    const properties = await propertyService.searchProperties(KERR_CLOSE.address)
+    expect(properties).toContainEqual({
+      id: expect.any(Number),
+      ...KERR_CLOSE
     })
-
-    await testDBService.insertProperty({
-      address: '90 Blues Point Rd',
-      comment: 'Beautiful view'
-    })
-
-    const properties = await propertyService.searchProperties('20 Rae Street')
-    expect(properties).toEqual([
-      {
-        id: expect.any(Number),
-        address: 'Unit 2 20 Rae Street',
-        comment: 'Strata ignored a serious gas leak',
-      }
-    ])
   })
 })

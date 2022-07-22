@@ -5,6 +5,7 @@ import { Response } from 'supertest'
 import { AppModule } from '../src/app.module'
 import { TestDBService } from '../src/testDB.service'
 import { PropertyResponse } from '../src/app.controller'
+import { BLUES_POINT, KERR_CLOSE } from '../src/property.fixture'
 
 describe('AppController', () => {
   let app: INestApplication
@@ -20,29 +21,18 @@ describe('AppController', () => {
     await app.init()
 
     testDBService = app.get<TestDBService>(TestDBService)
-    await testDBService.clearProperties()
-    await testDBService.insertProperty({
-      address: '90 Blues Point Rd',
-      comment: 'Beautiful view'
-    })
-    await testDBService.insertProperty({
-      address: '5 Kerr Close',
-      comment: 'Geckos in the garage'
-    })
+    await testDBService.ensureFixtures()
   })
 
   it('searches properties', () => {
-    const blues = '90 Blues Point Rd'
-    const kerr = '5 Kerr Close'
-
     return request(app.getHttpServer())
       .get('/api/properties?q=90 Blues Point')
       .expect(200)
       .expect((response: Response) => {
         const returnedPropertyAddresses = (response.body as PropertyResponse).properties.map(prop => prop.address)
 
-        expect(returnedPropertyAddresses.includes(blues)).toEqual(true)
-        expect(returnedPropertyAddresses.includes(kerr)).toEqual(false)
+        expect(returnedPropertyAddresses.includes(BLUES_POINT.address)).toEqual(true)
+        expect(returnedPropertyAddresses.includes(KERR_CLOSE.address)).toEqual(false)
       })
   })
 })

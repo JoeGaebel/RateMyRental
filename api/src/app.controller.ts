@@ -7,6 +7,11 @@ export interface Property {
   comment: string;
 }
 
+export interface PropertyAttributes {
+  address: string;
+  comment: string;
+}
+
 export interface PropertyResponse {
   properties: Property[];
 }

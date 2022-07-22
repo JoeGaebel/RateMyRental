@@ -15,7 +15,7 @@ test('Searching results', async t => {
 
   await t.expect(Selector('title').withText('Rate My Rental').exists).ok()
 
-  await t.typeText('[aria-label="property search"]', '5 Kerr')
+  await t.typeText('[aria-label="property search"]', '5 Kerr Close')
   await t.click(Selector('button').withText('Search'))
 
   const kerr = Selector('[aria-label="property listing"]').withText('5 Kerr Close')
