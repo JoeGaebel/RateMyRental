@@ -2,6 +2,7 @@ import { InjectClient } from 'nest-postgres'
 import { Client } from 'pg'
 import { Injectable } from '@nestjs/common'
 import { Property } from './app.controller'
+import * as format from 'pg-format'
 
 @Injectable()
 export class TestDBService {
@@ -20,5 +21,11 @@ export class TestDBService {
         INSERT INTO properties(address, comment)
         VALUES ('${property.address}', '${property.comment}');
     `)
+  }
+
+  async insertProperties(properties: Omit<Property, 'id'>[]): Promise<void> {
+    const formattedProperties = properties.map(property => [property.address, property.comment])
+    const query = format('INSERT INTO properties (address, comment) VALUES %L', formattedProperties)
+    await this.pg.query(query)
   }
 }

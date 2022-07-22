@@ -17,7 +17,7 @@ export class AppController {
 
   @Get('/api/properties')
   async getProperties(@Query('q') addressQuery: string): Promise<PropertyResponse> {
-    const properties = await this.propertyService.getProperties(addressQuery)
+    const properties = await this.propertyService.searchProperties(addressQuery)
     return {properties}
   }
 }

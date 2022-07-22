@@ -11,7 +11,7 @@ describe('AppController', () => {
       controllers: [AppController],
       providers: [{
         provide: PropertyService,
-        useFactory: () => ({getProperties: jest.fn()})
+        useFactory: () => ({searchProperties: jest.fn()})
       }],
     }).compile()
 
@@ -21,7 +21,7 @@ describe('AppController', () => {
 
   describe('root', () => {
     beforeEach(() => {
-      (propertyService.getProperties as jest.Mock).mockResolvedValue([{
+      (propertyService.searchProperties as jest.Mock).mockResolvedValue([{
         id: 1,
         address: 'Unit 2 20 Rae Street',
         comment: 'Strata ignored a serious gas leak',

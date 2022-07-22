@@ -36,7 +36,7 @@ describe('AppController', () => {
     const kerr = '5 Kerr Close'
 
     return request(app.getHttpServer())
-      .get('/api/properties?q=Blues')
+      .get('/api/properties?q=90 Blues Point')
       .expect(200)
       .expect((response: Response) => {
         const returnedPropertyAddresses = (response.body as PropertyResponse).properties.map(prop => prop.address)

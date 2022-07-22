@@ -31,7 +31,7 @@ describe('Property Integration', () => {
       comment: 'Beautiful view'
     })
 
-    const properties = await propertyService.getProperties('Rae')
+    const properties = await propertyService.searchProperties('20 Rae Street')
     expect(properties).toEqual([
       {
         id: expect.any(Number),

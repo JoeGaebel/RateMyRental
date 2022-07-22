@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+dropdb -f ratemyrental
+dropdb -f ratemyrental-test

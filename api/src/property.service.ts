@@ -7,8 +7,14 @@ import { InjectClient } from 'nest-postgres'
 export class PropertyService {
   constructor(@InjectClient() private readonly pg: Client) {}
 
-  async getProperties(query: string): Promise<Property[]> {
-    const results: QueryResult<Property> = await this.pg.query<Property>(`select * from properties where address like '%${query}%'`)
+  async searchProperties(query: string): Promise<Property[]> {
+    const results: QueryResult<Property> = await this.pg.query<Property>(`
+        SELECT *
+        FROM properties
+        WHERE levenshtein(address, '${query}') <= 10
+        ORDER BY levenshtein(address, '${query}') ASC
+        LIMIT 5;
+    `)
     return results.rows
   }
 }
