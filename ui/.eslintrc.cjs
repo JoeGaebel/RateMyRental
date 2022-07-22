@@ -12,6 +12,7 @@ module.exports = {
     '@typescript-eslint/ban-ts-comment': 'off',
     quotes: ['error', 'single'],
     semi: ['error', 'never'],
-    'vue/multi-word-component-names': 'off'
+    'vue/multi-word-component-names': 'off',
+    '@typescript-eslint/no-non-null-assertion': 'off'
   }
 }

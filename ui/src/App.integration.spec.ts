@@ -4,7 +4,7 @@ import { flushPromises, mount } from '@vue/test-utils'
 import App from './App.vue'
 import { routes } from '@/router'
 import type { Router } from 'vue-router'
-import { createRouter, createWebHistory } from 'vue-router'
+import { createMemoryHistory, createRouter } from 'vue-router'
 import { rest } from 'msw'
 import type { SetupServerApi } from 'msw/node'
 import { setupServer } from 'msw/node'
@@ -22,7 +22,7 @@ describe('App', () => {
     server.resetHandlers()
 
     router = createRouter({
-      history: createWebHistory(),
+      history: createMemoryHistory(),
       routes: routes,
     })
 
@@ -45,13 +45,20 @@ describe('App', () => {
         )
       ))
 
-    const searchInput = wrapper.get('[aria-label="property search"]')
+    const searchInput = wrapper.get('[aria-label="address search"]')
     await searchInput.setValue('20 Rae Street')
     await wrapper.find('button').trigger('click')
 
     await flushPromises()
 
-    const properties = await wrapper.find('[aria-label="property results"]')
-    expect(properties.text()).toContain('Unit 2, 20 Rae Street')
+    const addresses = wrapper.findAll('[aria-label="address results"] a')
+    const raeStreet = addresses.find(a => a.text() === 'Unit 2, 20 Rae Street')!
+    expect(raeStreet.exists()).toEqual(true)
+
+    await raeStreet.trigger('click')
+    await flushPromises()
+
+    const title = wrapper.get('[aria-label="address title"]')
+    expect(title.text()).toEqual('10')
   })
 })

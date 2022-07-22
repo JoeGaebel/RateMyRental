@@ -4,11 +4,12 @@ import { flushPromises, shallowMount } from '@vue/test-utils'
 import Home from './Home.vue'
 import axios from 'axios'
 import type { Address } from '@/components/Home.vue'
+import { RouterLink } from 'vue-router'
 
 describe('Home', () => {
     let getSpy: SpyInstance
     let addressesMock: Address[]
-
+    let routerMock: {push: SpyInstance}
     beforeEach(() => {
         // @ts-ignore
         import.meta.env.VITE_API_URL = 'http://localhost'
@@ -19,12 +20,13 @@ describe('Home', () => {
         ]
 
         getSpy = vi.spyOn(axios, 'get').mockResolvedValue({ data: {addresses: addressesMock }})
+        routerMock = {push: vi.fn()}
     })
 
     it('searches for properties and renders the results', async () => {
-        const wrapper = shallowMount(Home)
+        const wrapper = shallowMount(Home, {global: {mocks: {$router: routerMock}}})
 
-        const searchInput = wrapper.get('[aria-label="property search"]')
+        const searchInput = wrapper.get('[aria-label="address search"]')
         await searchInput.setValue('20 Rae Street')
         await wrapper.find('button').trigger('click')
 
@@ -32,8 +34,10 @@ describe('Home', () => {
 
         await flushPromises()
 
-        const properties = wrapper.findAll('[aria-label="property listing"]')
-        expect(properties[0].text()).toEqual('123 Clam St')
-        expect(properties[1].text()).toEqual('20 Rae Street')
+        const addresses = wrapper
+          .findAll('[aria-label="address listing"]')
+          .map(a => a.findComponent(RouterLink))
+
+        expect(addresses).toHaveLength(2)
     })
 })

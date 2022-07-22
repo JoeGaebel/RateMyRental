@@ -1,10 +1,14 @@
+<script setup lang="ts">
+import { RouterLink } from 'vue-router'
+</script>
+
 <template>
-  <input type="text" v-model="searchQuery" aria-label="property search"/>
+  <input type="text" v-model="searchQuery" aria-label="address search"/>
   <button @click="getProperties()">Search</button>
-  <div aria-label="property results">
+  <div aria-label="address results">
     <ul>
-      <li v-for="address in addresses" :key="address.id" aria-label="property listing">
-        {{ address.address }}
+      <li v-for="address in addresses" :key="address.id" aria-label="address listing">
+        <RouterLink :to="{ path: `/address/${address.id}`}">{{ address.address }}</RouterLink>
       </li>
     </ul>
   </div>
