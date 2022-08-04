@@ -1722,8 +1722,14 @@ cuint@^0.2.2:
   resolved "https://registry.yarnpkg.com/cuint/-/cuint-0.2.2.tgz#408086d409550c2631155619e9fa7bcadc3b991b"
   integrity sha512-d4ZVpCW31eWwCMe1YT3ur7mUDnTXbgwyzaL320DrcRT45rfjYxkt5QWLrmOJ+/UEAI2+fQgKe/fCjR8l4TpRgw==
 
-"db@file:../db":
+db@1.0.0:
   version "1.0.0"
+  resolved "https://registry.yarnpkg.com/db/-/db-1.0.0.tgz#0047a749642368ac4039df1a675d4c78b93e2fe9"
+  integrity sha512-hVQpcvv8ITQP102AHI5lM6gAC4WHYuAUDhcwz/St7cMF8P7eku8Lem3XjpsFYZLREKk6np5fAiJaUWBhMtUwRA==
+  dependencies:
+    ds "1.2.0"
+    mysql "0.9.4"
+    redis "0.6.7"
 
 debug@4.3.1:
   version "4.3.1"
@@ -1849,6 +1855,11 @@ doctrine@^3.0.0:
   integrity sha512-yS+Q5i3hBf7GBkd4KG8a7eBNNWNGLTaEwwYWUijIYM7zrlYDM0BFXHjjPWlWZ1Rg7UaddZeIDmi9jF3HmqiQ2w==
   dependencies:
     esutils "^2.0.2"
+
+ds@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/ds/-/ds-1.2.0.tgz#39b38942a53b149e7e27a8930acdad193c86260a"
+  integrity sha512-FENViLctl3mHTQ9JtJzYUXqpksH8xLaI2dAMB4BOpWDYXS9S1XYxZyTDfKMGwn/7JUuZog3AWvKnNoRX1YqmEA==
 
 ecdsa-sig-formatter@1.0.11:
   version "1.0.11"
@@ -2518,6 +2529,13 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
+hashish@0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/hashish/-/hashish-0.0.4.tgz#6d60bc6ffaf711b6afd60e426d077988014e6554"
+  integrity sha512-xyD4XgslstNAs72ENaoFvgMwtv8xhiDtC2AtzCG+8yF7W/Knxxm9BX+e2s25mm+HxMKh0rBmXVOEGF3zNImXvA==
+  dependencies:
+    traverse ">=0.2.4"
+
 highlight-es@^1.0.0:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/highlight-es/-/highlight-es-1.0.3.tgz#12abc300a27e686f6f18010134e3a5c6d2fe6930"
@@ -3140,6 +3158,13 @@ mustache@^2.1.1, mustache@^2.1.2, mustache@^2.2.1:
   resolved "https://registry.yarnpkg.com/mustache/-/mustache-2.3.2.tgz#a6d4d9c3f91d13359ab889a812954f9230a3d0c5"
   integrity sha512-KpMNwdQsYz3O/SBS1qJ/o3sqUJ5wSb8gb0pul8CO0S56b9Y2ALm8zCfsjPXsqGFfoNBkDwZuZIAjhsZI03gYVQ==
 
+mysql@0.9.4:
+  version "0.9.4"
+  resolved "https://registry.yarnpkg.com/mysql/-/mysql-0.9.4.tgz#f62b72f0af537fc511b694d256fdcdb86b2e9951"
+  integrity sha512-tt+MPrDXJWQMBpPySP239/9nLjucsf6JIQIZblIeYYyfbmGAw2IPTLULm5sWTVxWzihornieoWmMP5sarG9HQQ==
+  dependencies:
+    hashish "0.0.4"
+
 nanoid@^3.1.12, nanoid@^3.1.31:
   version "3.3.4"
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.4.tgz#730b67e3cd09e2deacf03c027c81c9d9dbc5e8ab"
@@ -3584,6 +3609,11 @@ readable-stream@^2.0.1:
     safe-buffer "~5.1.1"
     string_decoder "~1.1.1"
     util-deprecate "~1.0.1"
+
+redis@0.6.7:
+  version "0.6.7"
+  resolved "https://registry.yarnpkg.com/redis/-/redis-0.6.7.tgz#0f17f913468a5cb2bf0864e4d56669d058668d46"
+  integrity sha512-g5t7tTf9QXNryrfDefqu0K1gZ3LnFejtlylXBd/cBEVZ07F9tXP8nUGdrF1sU/h5l9qJJSbgdBgVdJselb36tA==
 
 regenerate-unicode-properties@^10.0.1:
   version "10.0.1"
@@ -4242,6 +4272,11 @@ tr46@~0.0.3:
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/tr46/-/tr46-0.0.3.tgz#8184fd347dac9cdc185992f3a6622e14b9d9ab6a"
   integrity sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==
+
+traverse@>=0.2.4:
+  version "0.6.6"
+  resolved "https://registry.yarnpkg.com/traverse/-/traverse-0.6.6.tgz#cbdf560fd7b9af632502fed40f918c157ea97137"
+  integrity sha512-kdf4JKs8lbARxWdp7RKdNzoJBhGUcIalSYibuGyHJbmk40pOysQ0+QPvlkCOICOivDWU2IJo2rkrxyTK2AH4fw==
 
 tree-kill@^1.2.2:
   version "1.2.2"

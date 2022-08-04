@@ -1,8 +1,10 @@
 {
   "name": "db",
   "version": "1.0.0",
-  "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "generate-types": "tsc --declaration TestDBUtility.ts"
+  },
   "devDependencies": {
     "@types/pg": "^8.6.5",
     "@types/pg-format": "^1.0.2",

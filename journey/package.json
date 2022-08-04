@@ -8,15 +8,14 @@
     "test:headed": "testcafe chrome *.ts",
     "lint": "eslint *.ts"
   },
-  "dependencies": {
+  "devDependencies": {
     "@types/pg": "^8.6.5",
+    "db": "./db",
     "eslint": "^8.0.1",
     "pg": "^8.7.3",
     "testcafe": "^1.19.0",
-    "typescript": "^4.7.4"
-  },
-  "devDependencies": {
-    "db": "file:../db",
+    "typescript": "^4.7.4",
+    "@types/jest": "28.1.2",
     "@typescript-eslint/eslint-plugin": "^5.30.6",
     "@typescript-eslint/parser": "^5.30.6",
     "eslint-config-standard": "^17.0.0",
